@@ -126,6 +126,12 @@ path = "{}.rs""#,
         .expect("Failed to run 'compile' command.");
 
         if cmd.status.success() {
+            // Because compiler warnings go to the standard error, we have to inspect the
+            // standard error of the child process responsible for compiling the code.
+            if !cmd.stderr.is_empty() {
+                println!("{}", String::from_utf8_lossy(&cmd.stderr).to_string());
+                //fs::write!(format!("[DEBUG] {}\n", String::from_utf8_lossy(&cmd.stderr).to_string()));
+            }
             Ok(CompiledExercise {
                 exercise: &self,
                 _handle: FileHandle,
