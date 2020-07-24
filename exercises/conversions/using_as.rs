@@ -17,3 +17,14 @@ fn main() {
     let values = [3.5, 0.3, 13.0, 11.7];
     println!("{}", average(&values));
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn is_float() {
+        let values = [3.5, 0.3, 13.0, 11.7];
+        assert_eq!(average(&values), 7.125);
+    }
+}
+
